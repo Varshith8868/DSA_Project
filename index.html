@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVL Tree Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="text-white h-screen flex flex-col overflow-hidden relative">
+    <!-- Animated Particles -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 6s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 7s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 8s;"></div>
+    </div>
+    
+    <!-- Header -->
+    <header class="p-6 glass rounded-b-2xl fade-in float">
+        <h1 class="text-4xl font-bold text-center text-gradient">AVL Tree Visualizer</h1>
+        <p class="text-center text-gray-300 mt-2">Experience the beauty of self-balancing trees</p>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex flex-1 fade-in delay-1">
+        <!-- Left Controls -->
+        <aside class="w-80 p-6 glass neumorphism m-4 rounded-2xl hover-lift fade-in delay-2">
+            <h2 class="text-xl font-semibold mb-4 text-gradient">Controls</h2>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2 text-cyan-300">Insert Value</label>
+                <input id="insert-value" type="number" class="w-full p-3 neumorphism-inset rounded-xl border-0 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all" placeholder="Enter a number">
+            </div>
+            <div class="flex space-x-3 mb-4">
+                <button id="insert-btn" class="flex-1 neumorphism btn-glow p-3 rounded-xl font-medium transition-all text-cyan-300 hover:text-white hover-lift">Insert</button>
+                <button id="auto-demo-btn" class="flex-1 neumorphism btn-glow p-3 rounded-xl font-medium transition-all text-purple-300 hover:text-white hover-lift">Auto Demo</button>
+            </div>
+            <div class="flex space-x-3 mb-4">
+                <button id="step-btn" class="flex-1 neumorphism btn-glow p-3 rounded-xl font-medium transition-all text-green-300 hover:text-white hover-lift">Step</button>
+                <button id="reset-btn" class="flex-1 neumorphism btn-glow p-3 rounded-xl font-medium transition-all text-red-300 hover:text-white hover-lift">Reset</button>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2 text-cyan-300">Demo Sequence</label>
+                <input id="demo-sequence" type="text" class="w-full p-3 neumorphism-inset rounded-xl border-0 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all" placeholder="e.g., 10,20,30,5" value="10,20,30,5,15,25,35">
+            </div>
+        </aside>
+
+        <!-- Center Tree Visualization -->
+        <main class="flex-1 p-4 fade-in delay-3">
+            <div class="w-full h-full glass neumorphism rounded-2xl p-6 hover-lift">
+                <svg id="tree-svg" class="w-full h-full" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+        </main>
+
+        <!-- Right Stats -->
+        <aside class="w-80 p-6 glass neumorphism m-4 rounded-2xl hover-lift fade-in delay-4">
+            <h2 class="text-xl font-semibold mb-4 text-gradient">Statistics</h2>
+            <div class="space-y-4">
+                <div class="neumorphism-inset p-4 rounded-xl">
+                    <label class="block text-sm font-medium text-cyan-300">Tree Height</label>
+                    <p id="tree-height" class="text-3xl font-bold text-cyan-400">0</p>
+                </div>
+                <div class="neumorphism-inset p-4 rounded-xl">
+                    <label class="block text-sm font-medium text-green-300">Balance Factor</label>
+                    <p id="balance-factor" class="text-3xl font-bold text-green-400">0</p>
+                </div>
+                <div class="neumorphism-inset p-4 rounded-xl">
+                    <label class="block text-sm font-medium text-purple-300">Last Rotation</label>
+                    <p id="last-rotation" class="text-lg font-semibold text-purple-400">None</p>
+                </div>
+                <div class="neumorphism-inset p-4 rounded-xl">
+                    <label class="block text-sm font-medium text-yellow-300">Node Count</label>
+                    <p id="node-count" class="text-3xl font-bold text-yellow-400">0</p>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold mb-3 text-gradient">Legend</h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-center neumorphism-inset p-2 rounded-lg">
+                        <div class="w-4 h-4 bg-green-400 rounded-full mr-3 glow-green"></div>
+                        <span>Balanced</span>
+                    </div>
+                    <div class="flex items-center neumorphism-inset p-2 rounded-lg">
+                        <div class="w-4 h-4 bg-amber-400 rounded-full mr-3 glow-amber"></div>
+                        <span>Left Heavy</span>
+                    </div>
+                    <div class="flex items-center neumorphism-inset p-2 rounded-lg">
+                        <div class="w-4 h-4 bg-violet-400 rounded-full mr-3 glow-violet"></div>
+                        <span>Right Heavy</span>
+                    </div>
+                    <div class="flex items-center neumorphism-inset p-2 rounded-lg">
+                        <div class="w-4 h-4 bg-cyan-400 rounded-full mr-3 glow-cyan"></div>
+                        <span>Rotating</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="absolute bg-black bg-opacity-80 text-white p-2 rounded-lg pointer-events-none opacity-0 transition-opacity duration-300 z-10"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
