@@ -4,11 +4,14 @@ A beautiful, interactive web-based visualization tool for AVL Trees (Adelson-Vel
 
 ## Overview
 
-The AVL Tree Visualizer helps students and developers understand how AVL trees maintain their balance during insertions. It provides a graphical representation of the tree structure, calculating balance factors and performing rotations (Left-Left, Right-Right, Left-Right, Right-Left) automatically.
+The AVL Tree Visualizer helps students and developers understand how AVL trees maintain their balance during operations. It provides a graphical representation of the tree structure, calculating balance factors and performing rotations (Left-Left, Right-Right, Left-Right, Right-Left) automatically.
 
 ## Features
 
-- **Interactive Visualizations**: Watch nodes being inserted and the tree rebalancing itself.
+- **Interactive Operations**:
+    - **Insert**: Add nodes to the tree and watch it balance.
+    - **Delete**: Remove nodes and observe the rebalancing process.
+    - **Search**: Locate and highlight specific nodes in the tree.
 - **Auto Demo Mode**: Run a predefined sequence of insertions to see the tree in action without manual input.
 - **Real-time Statistics**:
     - **Tree Height**: Current height of the tree.
@@ -53,14 +56,24 @@ Simply open the `index.html` file in your web browser.
    - Click the **Insert** button or press **Enter**.
    - Watch the node appear and the tree balance itself if necessary.
 
-2. **Auto Demo**:
-   - The "Demo Sequence" field contains a default list of numbers. You can edit this list (comma-separated).
-   - Click **Auto Demo** to watch the sequence be inserted automatically.
+2. **Delete a Value**:
+   - Enter a number in the "Delete Value" input field.
+   - Click the **Delete** button or press **Enter**.
+   - The node will be removed, and the tree will rebalance.
 
-3. **Reset**:
+3. **Search for a Value**:
+   - Enter a number in the "Search Value" input field.
+   - Click the **Search** button or press **Enter**.
+   - If found, the node will blink with a cyan glow.
+
+4. **Auto Demo**:
+   - The "Auto Demo Sequence" field contains a default list of numbers. You can edit this list (comma-separated).
+   - Click **Run Demo** to watch the sequence be inserted automatically.
+
+5. **Reset**:
    - Click the **Reset** button to clear the tree and start over.
 
-4. **Analyze Nodes**:
+6. **Analyze Nodes**:
    - Hover over any node in the tree to see its specific Value, Height, and Balance Factor.
 
 ## License
