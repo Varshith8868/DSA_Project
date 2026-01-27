@@ -38,6 +38,64 @@ class AVLTree {
         return this.balance(node);
     }
 
+    delete(val) {
+        this.root = this._delete(this.root, val);
+        this.updateStats();
+        this.drawTree();
+    }
+
+    _delete(node, val) {
+        if (!node) return node;
+
+        if (val < node.val) {
+            node.left = this._delete(node.left, val);
+        } else if (val > node.val) {
+            node.right = this._delete(node.right, val);
+        } else {
+            if (!node.left) return node.right;
+            if (!node.right) return node.left;
+
+            const temp = this.minValueNode(node.right);
+            node.val = temp.val;
+            node.right = this._delete(node.right, temp.val);
+        }
+
+        if (!node) return node;
+
+        this.updateHeight(node);
+        return this.balance(node);
+    }
+
+    minValueNode(node) {
+        let current = node;
+        while (current.left) current = current.left;
+        return current;
+    }
+
+    search(val) {
+        const node = this._search(this.root, val);
+        if (node) {
+            this.blinkNode(node);
+        }
+    }
+
+    _search(node, val) {
+        if (!node || node.val === val) return node;
+        if (val < node.val) return this._search(node.left, val);
+        return this._search(node.right, val);
+    }
+
+    blinkNode(node) {
+        const svg = document.getElementById('tree-svg');
+        const circles = svg.querySelectorAll('circle');
+        circles.forEach(circle => {
+            if (parseInt(circle.nextSibling.textContent) === node.val) {
+                circle.classList.add('glow-cyan');
+                setTimeout(() => circle.classList.remove('glow-cyan'), 2000); // Blink for 2 seconds
+            }
+        });
+    }
+
     updateHeight(node) {
         if (!node) return 0;
         node.h = 1 + Math.max(this.height(node.left), this.height(node.right));
@@ -231,6 +289,22 @@ document.getElementById('insert-btn').addEventListener('click', () => {
     }
 });
 
+document.getElementById('delete-btn').addEventListener('click', () => {
+    const val = parseInt(document.getElementById('delete-value').value);
+    if (!isNaN(val)) {
+        tree.delete(val);
+        document.getElementById('delete-value').value = '';
+    }
+});
+
+document.getElementById('search-btn').addEventListener('click', () => {
+    const val = parseInt(document.getElementById('search-value').value);
+    if (!isNaN(val)) {
+        tree.search(val);
+        document.getElementById('search-value').value = '';
+    }
+});
+
 document.getElementById('auto-demo-btn').addEventListener('click', () => {
     const sequence = document.getElementById('demo-sequence').value.split(',').map(v => parseInt(v.trim())).filter(v => !isNaN(v));
     let i = 0;
@@ -255,5 +329,19 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 document.getElementById('insert-value').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         document.getElementById('insert-btn').click();
+    }
+});
+
+// Enter key for delete
+document.getElementById('delete-value').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.getElementById('delete-btn').click();
+    }
+});
+
+// Enter key for search
+document.getElementById('search-value').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.getElementById('search-btn').click();
     }
 });
