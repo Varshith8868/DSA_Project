@@ -8,6 +8,7 @@ The AVL Tree Visualizer helps students and developers understand how AVL trees m
 
 ## Features
 
+
 - **Interactive Operations**:
   - **Insert**: Add nodes to the tree and watch it self-balance.
   - **Delete**: Remove nodes from the tree with automatic rebalancing.
