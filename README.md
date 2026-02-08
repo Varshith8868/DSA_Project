@@ -1,6 +1,5 @@
 # AVL Tree Visualizer
 
-
 A beautiful, interactive web-based visualization tool for AVL Trees (Adelson-Velsky and Landis Trees). This project demonstrates the self-balancing properties of AVL trees through real-time animations and statistics.
 
 ## Overview
